@@ -1,0 +1,71 @@
+{
+  "users": [
+    {
+      "id": "user1@gmail.com",
+      "email": "user1@gmail.com",
+      "password": "12345678"
+    },
+    {
+      "id": "user2@gmail.com",
+      "email": "user2@gmail.com",
+      "password": "12345678"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Dutch Milk",
+      "imageUrl": "https://www.lets.havelook.at/300.png/09f/fff",
+      "shortDes": "Short des of Dutch Milk",
+      "qtyInStock": 10
+    },
+    {
+      "id": 2,
+      "name": "Cambodia Water",
+      "imageUrl": "https://thumbs.dreamstime.com/b/vector-realistic-illustration-drinking-water-plastic-bottle-label-mockup-template-transparent-mineral-your-brand-ad-108045010.jpg",
+      "shortDes": "Short des of Cambodia Water",
+      "qtyInStock": 100
+    }
+  ],
+  "latestProducts": [
+    {
+      "id": 1,
+      "name": "Dutch Milk",
+      "imageUrl": "https://www.lets.havelook.at/300.png/09f/fff",
+      "shortDes": "Short des of Dutch Milk",
+      "qtyInStock": 10
+    },
+    {
+      "id": 2,
+      "name": "Cambodia Water",
+      "imageUrl": "https://thumbs.dreamstime.com/b/vector-realistic-illustration-drinking-water-plastic-bottle-label-mockup-template-transparent-mineral-your-brand-ad-108045010.jpg",
+      "shortDes": "Short des of Cambodia Water",
+      "qtyInStock": 100
+    },
+    {
+      "id": 3,
+      "name": "iPhone 17",
+      "imageUrl": "https://www.lets.havelook.at/300.png/09f/fff",
+      "shortDes": "Short des of iPhone 17",
+      "qtyInStock": 10
+    },
+    {
+      "id": 4,
+      "name": "Salt",
+      "imageUrl": "https://thumbs.dreamstime.com/b/vector-realistic-illustration-drinking-water-plastic-bottle-label-mockup-template-transparent-mineral-your-brand-ad-108045010.jpg",
+      "shortDes": "Short des of Salt",
+      "qtyInStock": 100
+    }
+  ],
+  "favProducts": [],
+  "cart": [],
+  "orderHistory": [],
+  "todos": [
+    {
+      "id": "6214",
+      "title": "Reading Book",
+      "status": "InProgress",
+      "dueDate": "2026-08-30"
+    }
+  ]
+}
