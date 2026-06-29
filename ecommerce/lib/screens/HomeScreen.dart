@@ -37,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _onCartPress() {
+    _onTab(2);
+  }
+
   Widget _buildContent() {
     return _pages[_selectedIndex];
   }
@@ -44,7 +48,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_titles[_selectedIndex])),
+      appBar: AppBar(
+        title: Text(_titles[_selectedIndex]),
+        actions: [
+          if (_selectedIndex != 2)
+            IconButton(
+              onPressed: _onCartPress,
+              icon: Icon(Icons.shopping_cart),
+            ),
+        ],
+      ),
       body: _buildContent(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

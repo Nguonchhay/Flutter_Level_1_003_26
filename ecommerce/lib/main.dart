@@ -1,14 +1,21 @@
+import 'package:ecommerce/providers/cart_state_notifier.dart';
 import 'package:ecommerce/screens/HomeScreen.dart';
 import 'package:ecommerce/screens/LoginScreen.dart';
 import 'package:ecommerce/screens/ProfileScreen.dart';
 import 'package:ecommerce/screens/SignUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => CartStateNotifier())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

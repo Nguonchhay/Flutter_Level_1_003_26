@@ -1,6 +1,9 @@
 import 'package:ecommerce/extensions/widget_padding.dart';
+import 'package:ecommerce/models/product_model.dart';
+import 'package:ecommerce/providers/cart_state_notifier.dart';
 import 'package:ecommerce/services/product_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
@@ -13,14 +16,15 @@ class _HomeContentState extends State<HomeContent> {
   late ProductService _productService;
   final PageController _pageController = PageController(viewportFraction: 0.7);
   List<Map<String, dynamic>> _products = [];
+  late CartStateNotifier _cartState;
 
   @override
   void initState() {
     super.initState();
-
     _productService = ProductService();
-
     _callLatestProducts();
+
+    _cartState = Provider.of<CartStateNotifier>(context, listen: false);
   }
 
   void _callLatestProducts() async {
@@ -35,6 +39,14 @@ class _HomeContentState extends State<HomeContent> {
     });
   }
 
+  void _addProductToCart(ProductModel product) {
+    _cartState.addProduct(product);
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text("${product.title} is added")));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,7 +54,7 @@ class _HomeContentState extends State<HomeContent> {
         Text('Latest Products', style: TextStyle(fontSize: 20.0)),
         SizedBox(
           // Fixed height for the carousel area
-          height: 250,
+          height: 280,
           child: PageView.builder(
             controller: _pageController,
             itemCount: _products.length,
@@ -51,14 +63,15 @@ class _HomeContentState extends State<HomeContent> {
             physics:
                 const BouncingScrollPhysics(), // Clean, native-feeling snap physics
             itemBuilder: (context, index) {
-              final product = _products[index];
+              final productItem = ProductModel.fromMap(_products[index]);
               return Padding(
                 // Adds horizontal padding between cards so they don't touch
                 padding: const EdgeInsets.only(right: 16.0, left: 4.0),
                 child: ProductCard(
-                  title: product['name'],
-                  description: product['shortDes'],
-                  imageUrl: product['imageUrl'],
+                  product: productItem,
+                  onTap: () {
+                    _addProductToCart(productItem);
+                  },
                 ),
               );
             },
@@ -70,16 +83,10 @@ class _HomeContentState extends State<HomeContent> {
 }
 
 class ProductCard extends StatelessWidget {
-  final String title;
-  final String description;
-  final String imageUrl;
+  final ProductModel product;
+  final VoidCallback onTap;
 
-  const ProductCard({
-    super.key,
-    required this.title,
-    required this.description,
-    required this.imageUrl,
-  });
+  const ProductCard({super.key, required this.product, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +100,7 @@ class ProductCard extends StatelessWidget {
         children: [
           // Upper section: Image with floating Favorite Button
           Image.network(
-            imageUrl,
+            product.imageUrl,
             height: 150,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -117,14 +124,14 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Text(
-            title,
+            product.title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ).padOnly(top: 12.0, left: 12.0),
           const SizedBox(height: 6),
           Text(
-            description,
+            product.description,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -132,6 +139,10 @@ class ProductCard extends StatelessWidget {
               color: Colors.grey[600],
               height: 1.3,
             ),
+          ).padOnly(left: 12.0),
+          ElevatedButton(
+            onPressed: onTap,
+            child: Text('Add To Cart'),
           ).padOnly(left: 12.0),
         ],
       ),
