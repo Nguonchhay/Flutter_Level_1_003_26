@@ -40,7 +40,7 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   void _addProductToCart(ProductModel product) {
-    _cartState.addProduct(product);
+    _cartState.addItem(product);
 
     ScaffoldMessenger.of(
       context,

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -22,6 +22,7 @@ class ProductService {
         throw Exception('Failed to load posts: ${response.statusCode}');
       }
     } catch (e) {
+      debugPrint(e.toString());
       throw Exception('Error occurred during GET request: $e');
     }
   }

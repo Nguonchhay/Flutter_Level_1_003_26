@@ -6,12 +6,14 @@ class ProductModel {
   String title;
   String description;
   String imageUrl;
+  double price;
 
   ProductModel({
     this.id,
     required this.title,
     required this.description,
     required this.imageUrl,
+    required this.price,
   });
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
@@ -20,6 +22,7 @@ class ProductModel {
       title: map['name'] as String,
       description: map['shortDes'] as String,
       imageUrl: map['imageUrl'] as String,
+      price: map['price'] != null ? (map['price'] as num).toDouble() : 0.0,
     );
   }
 
