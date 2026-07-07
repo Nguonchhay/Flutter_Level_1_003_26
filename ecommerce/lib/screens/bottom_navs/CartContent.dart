@@ -34,6 +34,9 @@ class _CartContentState extends State<CartContent> {
       child: Column(
         children: [
           ListView.builder(
+            shrinkWrap:
+                true, // <--- Tells ListView to only take up the space of its 3 items
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: _items.length,
             itemBuilder: (context, index) {
               final item = _items[index];
